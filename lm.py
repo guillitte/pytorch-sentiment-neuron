@@ -220,7 +220,7 @@ def train_epoch(epoch):
 
 	loss_avg = 0
 
-	for s in range(0):
+	for s in range(n_batch-1):
 
 		embed_optimizer.zero_grad()
 		rnn_optimizer.zero_grad()
