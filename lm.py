@@ -52,8 +52,7 @@ parser.add_argument('-ns', action='store_true',
                     help="Load open AI mlstm weights from numpy files")                 
 
 opt = parser.parse_args()    
-
-
+learning_rate = opt.learning_rate
 
 path = opt.train
 torch.manual_seed(opt.seed)
@@ -138,7 +137,11 @@ print(n_batch)
 embed_optimizer = optim.SGD(embed.parameters(), lr=learning_rate)
 rnn_optimizer = optim.SGD(rnn.parameters(), lr=learning_rate)
    
-
+def update_lr(optimizer, lr):
+    for group in optimizer.param_groups:
+        group['lr'] = lr
+    return
+	
 def clip_gradient_coeff(model, clip):
     """Computes a gradient clipping coefficient based on gradient norm."""
     totalnorm = 0
@@ -264,4 +267,6 @@ for e in range(10):
 	save_file = ('%s_e%s_%.2f.pt' % (opt.save_model, e, loss_avg))
 	print('Saving to '+ save_file)
 	torch.save(checkpoint, save_file)
-	opt.learning_rate *= 0.7
+	learning_rate *= 0.7
+	update_lr(rnn_optimizer, learning_rate)
+	update_lr(embed_optimizer, learning_rate)
