@@ -47,9 +47,7 @@ parser.add_argument('--seed', type=int, default=1234,
 parser.add_argument('-cuda', action='store_true',
                     help="Use CUDA")
 
-
-parser.add_argument('-ns', action='store_true',
-                    help="Load open AI mlstm weights from numpy files")                 
+         
 
 opt = parser.parse_args()    
 learning_rate = opt.learning_rate
@@ -108,15 +106,7 @@ else:
     else:#default to lstm
     	rnn = models.StackedLSTM(nn.LSTMCell, opt.layers, input_size, hidden_size, data_size, opt.dropout)
 
-    if opt.ns:
-    	embed.weight.data = torch.from_numpy(np.load("embd.npy"))
-    	rnn.h2o.weight.data = torch.from_numpy(np.load("w.npy")).t()
-    	rnn.h2o.bias.data = torch.from_numpy(np.load("b.npy"))
-    	rnn.layers[0].wx.weight.data = torch.from_numpy(np.load("wx.npy")).t()
-    	rnn.layers[0].wh.weight.data = torch.from_numpy(np.load("wh.npy")).t()
-    	rnn.layers[0].wh.bias.data = torch.from_numpy(np.load("b0.npy"))
-    	rnn.layers[0].wmx.weight.data = torch.from_numpy(np.load("wmx.npy")).t()
-    	rnn.layers[0].wmh.weight.data = torch.from_numpy(np.load("wmh.npy")).t()
+
 
 loss_fn = nn.CrossEntropyLoss() 
 
