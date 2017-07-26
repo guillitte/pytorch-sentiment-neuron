@@ -20,11 +20,11 @@ parser.add_argument('-train', default='data/input.txt',
                     help="""Text filename for training""")
 parser.add_argument('-valid', default='data/valid.txt',
                     help="""Text filename for validation""")                    
-parser.add_argument('-rnn_type', default='gru',
-                    help='Number of layers in the encoder/decoder')
+parser.add_argument('-rnn_type', default='mlstm',
+                    help='mlstm, lstm or gru')
 parser.add_argument('-layers', type=int, default=1,
-                    help='Number of layers in the encoder/decoder')
-parser.add_argument('-rnn_size', type=int, default=1024,
+                    help='Number of layers in the rnn')
+parser.add_argument('-rnn_size', type=int, default=4096,
                     help='Size of hidden states')
 parser.add_argument('-embed_size', type=int, default=128,
                     help='Size of embeddings')
