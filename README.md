@@ -7,7 +7,7 @@ Sample command :
 
 python visualize.py -seq_length 1000 -cuda -load_model mlstm_ns.pt -temperature 0.4 -neuron 2388 -init "I couldn't figure out"
 
-Click on release to get model file mlstm_ns.pt
+Click on release to get model file mlstm_ns.pt or numpy weights.
 
 The lm.py file allows you to retrain the model on new data. For instance :
 
