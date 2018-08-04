@@ -1,15 +1,10 @@
-import os
-import torch
-from torch.autograd import Variable
-from torch import optim
-import torch.nn.functional as F
-import torch.nn as nn
-import numpy as np
-import models
 import argparse
-import time
-import math
 
+import numpy as np
+import torch
+import torch.nn as nn
+
+import models
 
 parser = argparse.ArgumentParser(description='load_from_numpy.py')
 
@@ -20,7 +15,7 @@ parser.add_argument('-load_model', default='',
 parser.add_argument('-train', default='data/input.txt',
                     help="""Text filename for training""")
 parser.add_argument('-valid', default='data/valid.txt',
-                    help="""Text filename for validation""")                    
+                    help="""Text filename for validation""")
 parser.add_argument('-rnn_type', default='mlstm',
                     help='mlstm, lstm or gru')
 parser.add_argument('-layers', type=int, default=1,
@@ -43,13 +38,12 @@ parser.add_argument('-param_init', type=float, default=0.05,
 parser.add_argument('-clip', type=float, default=5,
                     help="""Clip gradients at this value.""")
 parser.add_argument('--seed', type=int, default=1234,
-                    help='random seed')   
+                    help='random seed')
 # GPU
 parser.add_argument('-cuda', action='store_true',
                     help="Use CUDA")
-               
 
-opt = parser.parse_args()   
+opt = parser.parse_args()
 
 embed = nn.Embedding(256, opt.embed_size)
 rnn = models.StackedLSTM(models.mLSTM, opt.layers, opt.embed_size, opt.rnn_size, 256, opt.dropout)
@@ -67,7 +61,7 @@ checkpoint = {
     'embed': embed,
     'opt': opt,
     'epoch': 0
-    }
+}
 save_file = opt.save_model
-print('Saving to '+ save_file)
+print('Saving to ' + save_file)
 torch.save(checkpoint, save_file)
