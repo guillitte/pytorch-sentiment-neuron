@@ -1,0 +1,8 @@
+numpy==1.15.0
+pandas==0.23.3
+Pillow==5.2.0
+python-dateutil==2.7.3
+pytz==2018.5
+six==1.11.0
+torch==0.4.1
+torchvision==0.2.1
